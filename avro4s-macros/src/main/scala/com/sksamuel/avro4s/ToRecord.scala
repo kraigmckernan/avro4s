@@ -1,7 +1,7 @@
 package com.sksamuel.avro4s
 
 import java.nio.ByteBuffer
-import java.time.{LocalDate, LocalDateTime}
+import java.time.{Instant, LocalDate, LocalDateTime}
 import java.time.format.DateTimeFormatter
 import java.util.UUID
 
@@ -68,6 +68,10 @@ object ToValue extends LowPriorityToValue {
 
   implicit object UUIDToValue extends ToValue[UUID] {
     override def apply(value: UUID): String = value.toString
+  }
+
+  implicit object InstantToValue extends ToValue[Instant] {
+    override def apply(value: Instant): Long = value.toEpochMilli
   }
 
   implicit object LocalDateToValue extends ToValue[LocalDate] {

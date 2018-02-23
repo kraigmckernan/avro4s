@@ -1,6 +1,6 @@
 package com.sksamuel.avro4s
 
-import java.time.{LocalDate, LocalDateTime}
+import java.time.{Instant, LocalDate, LocalDateTime}
 import java.util
 
 import org.apache.avro.Schema.Field
@@ -111,6 +111,10 @@ object ToSchema extends LowPriorityToSchema {
 
   implicit object UUIDToSchema extends ToSchema[java.util.UUID] {
     protected val schema = Schema.create(Schema.Type.STRING)
+  }
+
+  implicit object InstantToSchema extends ToSchema[Instant] {
+    protected val schema = Schema.create(Schema.Type.LONG)
   }
 
   implicit object LocalDateToSchema extends ToSchema[LocalDate] {

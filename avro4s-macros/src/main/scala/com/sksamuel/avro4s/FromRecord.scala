@@ -1,7 +1,7 @@
 package com.sksamuel.avro4s
 
 import java.nio.ByteBuffer
-import java.time.{LocalDate, LocalDateTime}
+import java.time.{Instant, LocalDate, LocalDateTime}
 import java.util.UUID
 
 import com.sksamuel.avro4s.ToSchema.defaultScaleAndPrecisionAndRoundingMode
@@ -93,6 +93,10 @@ object FromValue extends LowPriorityFromValue {
 
   implicit object UUIDFromValue extends FromValue[UUID] {
     override def apply(value: Any, field: Field): UUID = UUID.fromString(value.toString)
+  }
+
+  implicit object InstantFromValue extends FromValue[Instant] {
+    override def apply(value: Any, field: Field): Instant = Instant.ofEpochMilli(value.asInstanceOf[Long])
   }
 
   implicit object LocalDateFromValue extends FromValue[LocalDate] {
